@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Pesquisa de Produtos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Pesquisa</h1>
+    <div class="square">
+        <div class="codigo"><span>Cod</span> <input id="co" type="text"  size="3" maxlength="4" ></div>
+        <button class="button"></button>
+    <div id="total">Total: <span id="soma"></span></div>
+    <div class="produto"> 
+        <p>Código: <span id="code"></span>  <br> Produto: <span id="produ"></span> <br> Valor: <span id="valor"></span></p>
+    </div>
+    <img src="Páscoa-Ovos-de-Páscoa-PNG-47-1024x1024.png" alt="">
+    </div> 
+</body>
+</html>
+
+
+<script>
+    const lista = [
+    {cod:249,produto:'Barra Feliz Páscoa',valor:12.00},
+    {cod:403,produto:'Bombonier',valor:114.30},
+    {cod:8084,produto:'Bombonier C/Truffas',valor:30.00},
+    {cod:8083,produto:'Bombonier C/Truffas',valor:59.85},
+    {cod:110,produto:'Bombonier Choco Puro',valor:36.00},
+    {cod:412,produto:'Bombonier Drágeas',valor:36.00},
+    {cod:408,produto:'Cenoura C/Drágeas',valor:11.85},
+    {cod:659,produto:'Cesta C/Alça',valor:50.70},
+    {cod:9172,produto:'Cesta Especial',valor:58.80},
+    {cod:87,produto:'Cesta Páscoa',valor:50.25},
+    {cod:322,produto:'Cesta Páscoa',valor:119.85},
+    {cod:390,produto:'Cesta Páscoa',valor:148.80},
+    {cod:72,produto:'Cesta Páscoa',valor:216.30},
+    {cod:209,produto:'Cesta Páscoa',valor:26.70},
+    {cod:709,produto:'Cesta Rústica',valor:67.95},
+    {cod:587,produto:'Chocolate Sortido',valor:21.75},
+    {cod:586,produto:'Chocolate Sortido',valor:43.50},
+    {cod:585,produto:'Chocolate Sortido',valor:65.40},
+    {cod:377,produto:'Coelha',valor:18.00},
+    {cod:155,produto:'Coelha',valor:183.00},
+    {cod:429,produto:'Coelho',valor:4.05},
+    {cod:7029,produto:'Coelho',valor:4.80},
+    {cod:18,produto:'Coelho',valor:9.60},
+    {cod:20,produto:'Coelho',valor:24.00},
+    {cod:9240,produto:'Coelho Barra',valor:7.20},
+    {cod:21,produto:'Coelho Casal',valor:42.00},
+    {cod:39,produto:'Coração',valor:15.60},
+    {cod:42,produto:'Coração',valor:33.60},
+    {cod:448,produto:'Coração',valor:12.00},
+    {cod:160,produto:'Coração',valor:62.85},
+    {cod:256,produto:'Coração',valor:114.30},
+    {cod:97,produto:'Coração C/Bombons',valor:36.00},
+    {cod:302,produto:'Coração C/Bombons',valor:65.85},
+    {cod:92,produto:'Coração C/Drágeas',valor:12.45},
+    {cod:8075,produto:'Coruja',valor:12.45},
+    {cod:8943,produto:'Cx Acrílica Truffas',valor:32.55},
+    {cod:170,produto:'Cx Barras',valor:6.75},
+    {cod:173,produto:'Cx Barras',valor:13.20},
+    {cod:442,produto:'Cx Barras',valor:25.80},
+    {cod:367,produto:'Cx Barras',valor:51.45},
+    //Primeira Parte OK
+    {cod:334,produto:'Cx Bombons',valor:13.20},
+    {cod:62,produto:'Cx Bombons',valor:26.40},
+    {cod:5951,produto:'Cx Bombons',valor:24.30},
+    {cod:5950,produto:'Cx Bombons',valor:37.50},
+    {cod:6134,produto:'Cx Bombons Licor',valor:25.95},
+    {cod:8112,produto:'Cx Dino',valor:11.85},
+    {cod:3517,produto:'Cx Dinossauro',valor:66.90},
+    {cod:8107,produto:'Cx Florybal Especial',valor:24.00},
+    {cod:9230,produto:'Cx Mascote Páscoa',valor:58.05},
+    {cod:8627,produto:'Cx Ovo Para Colorir',valor:47.25},
+    {cod:7290,produto:'Cx Truffas Douradas',valor:31.95},
+    {cod:73,produto:'Dragéas Crocantes Mistas',valor:21.90},
+    {cod:7257,produto:'Kit Páscoa Mágica',valor:32.40},
+    {cod:7914,produto:'Ninho Florybal',valor:47.85},
+    {cod:9512,produto:'Ninho do Dragão',valor:51.60},
+    {cod:3,produto:'Ovo',valor:7.80},
+    {cod:4,produto:'Ovo',valor:14.40},
+    {cod:6,produto:'Ovo',valor:21.60},
+    {cod:7,produto:'Ovo',valor:36.00},
+    {cod:7210,produto:'Ovo',valor:53.85},
+    {cod:9,produto:'Ovo',valor:83.85},
+    {cod:10,produto:'Ovo',valor:114.30},
+    {cod:11,produto:'Ovo',valor:331.65},
+    {cod:5067,produto:'Ovo Cacau',valor:36.00},
+    {cod:7345,produto:'Ovo Cristais Crocante',valor:23.10},
+    {cod:9118,produto:'Ovo Drágeas',valor:37.20},
+    {cod:9119,produto:'Ovo Recheado Brigadeiro',valor:6.45},
+    {cod:9120,produto:'Ovo Recheado Morango',valor:6.45},
+    {cod:8154,produto:'Ovo Truffado Avelã',valor:59.70},
+    {cod:8160,produto:'Ovo Truffado Pérola Negra',valor:59.70},
+    {cod:9191,produto:'Pcte c/ Ovos',valor:7.80},
+    {cod:7033,produto:'Pcte c/ Ovos',valor:15.60},
+    {cod:8626,produto:'Pcte c/ Ovos',valor:31.65},
+    {cod:35,produto:'Pcte c/ Ovos',valor:24.30},
+    {cod:7352,produto:'Pcte c/ Truffas Douradas',valor:25.20},
+    {cod:7335,produto:'Pcte c/ Truffas Douradas',valor:49.20},
+    {cod:141,produto:'Pinguim',valor:12.45},
+    //Segunda Parte OK
+    {cod:380,produto:'Cesta Páscoa Branca',valor:57.90},
+    {cod:381,produto:'Cesta Páscoa Branca',valor:81.75},
+    {cod:186,produto:'Coelha Branca',valor:188.70},
+    {cod:2878,produto:'Coelho Branco',valor:4.05},
+    {cod:23,produto:'Coelho Branco',valor:24.75},
+    {cod:24,produto:'Coelho Casal Branco',valor:43.20},
+    {cod:44,produto:'Coração Branco',valor:15.60},
+    {cod:43,produto:'Coração Branco',valor:33.60},
+    {cod:117,produto:'Coração Branco',valor:62.85},
+    {cod:273,produto:'Coração Branco',valor:114.30},
+    {cod:8164,produto:'Cx Truffas Pérola Negra',valor:23.10},
+    {cod:12,produto:'Ovo Branco',valor:15.30},
+    {cod:7346,produto:'Ovo Doce de Leite',valor:23.10},
+    {cod:14,produto:'Ovo Branco',valor:37.05},
+    {cod:922,produto:'Ovo Cookies Branco',valor:43.20},
+    {cod:15,produto:'Ovo Branco',valor:55.50},
+    {cod:16,produto:'Ovo Branco',valor:86.40},
+    {cod:234,produto:'Ovo Branco',valor:342.15},
+    {cod:278,produto:'Pinguim Branco',valor:13.50},
+    //Terceira Parte Ok
+    {cod:650,produto:'Ovo 70% Cacau',valor:37.80},
+    {cod:200,produto:'Chocolate Sabor 70% Cacau',valor:8.55},
+    {cod:771,produto:'Barra 70% Cacau',valor:12.75},
+    {cod:6053,produto:'Bombonier 70% Cacau',valor:41.70},
+    {cod:7234,produto:'Pcte Truffas 70% Cacau',valor:7.65},
+    {cod:7669,produto:'Cx Truffas 70% Cacau',valor:24.45},
+    //Quarta Parte Ok
+    {cod:330,produto:'Coelha Meio Amargo',valor:19.05},
+    {cod:649,produto:'Ovo Meio Amargo',valor:23.10},
+    {cod:430,produto:'Ovo Meio Amargo',valor:37.80},
+    {cod:207,produto:'Chocolate Sabor Meio Amargo',valor:8.55},
+    {cod:7668,produto:'Cx Truffas Meio Amargo',valor:24.45},
+    {cod:6055,produto:'Bombonier Meio Amargo',valor:37.80},
+    //Quinta Parte OK
+    {cod:651,produto:'Ovo Diet',valor:18.15},
+    {cod:118,produto:'Coelho Diet',valor:30.30},
+    {cod:712,produto:'Cesta Diet',valor:62.10},
+    {cod:6003,produto:'Chocolate Sabor Diet',valor:8.55},
+    {cod:174,produto:'Cx Barras Diet',valor:18.15},
+    {cod:7722,produto:'Cx Diamante Diet',valor:25.95},
+    //Sexta Parte OK
+    {cod:5542,produto:'Coelha Soja',valor:22.65},
+    {cod:5541,produto:'Ovo Soja',valor:22.65},
+    {cod:6056,produto:'Chocolate Sabor Soja',valor:11.40},
+    {cod:9073,produto:'Pcte Chocolate Soja',valor:24.90},
+    {cod:6575,produto:'Bombonier Soja',valor:55.65}
+]
+
+
+    const codigo = document.getElementById('co')
+    const nome = document.getElementById('code')
+    const produto = document.querySelectorAll('#produ')[0]
+    const valor = document.querySelectorAll('#valor')[0]
+    const button = document.getElementsByClassName('button')[0]
+    const soma = document.querySelector('#soma')
+    let valorSomado = 0
+    
+    
+    const pesquisa = () => {
+        let codigo3 = parseInt(codigo.value)
+        let a = lista.filter(lista => lista.cod === codigo3)
+        nome.innerText = a[0].cod
+        produto.innerText = a[0].produto
+        valorSomado += a[0].valor
+        valor.innerText =   'R$ '+a[0].valor.toFixed(2)
+        soma.innerText =   'R$ '+valorSomado.toFixed(2)
+    }
+
+    button.addEventListener('click',pesquisa)
+    
+</script>
